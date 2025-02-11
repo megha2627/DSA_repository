@@ -1,0 +1,48 @@
+You are given the root of a binary search tree (BST) and an integer val.
+
+Find the node in the BST that the node's value equals val and return the subtree rooted with that node. If such a node does not exist, return null.
+
+
+import java.util.ArrayList;
+
+class Solution {
+    ArrayList<Integer> a1 = new ArrayList<>();
+    
+    // Helper method to collect values from the subtree
+    public void collectValues(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        
+        // Preorder traversal (collect left and right values)
+        if (root.left != null) {
+            a1.add(root.left.val);
+            collectValues(root.left);
+        }
+        
+        if (root.right != null) {
+            a1.add(root.right.val);
+            collectValues(root.right);
+        }
+    }
+    
+    public TreeNode searchBST(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+        
+        // If the value is found, collect values from the subtree
+        if (root.val == val) {
+            a1.add(root.val);  // Include the root value
+            collectValues(root);  // Collect all left and right subtree values
+            return root;  // Return the found node
+        }
+        
+        // Recursively search in the left or right subtree
+        if (val < root.val) {
+            return searchBST(root.left, val);
+        } else {
+            return searchBST(root.right, val);
+        }
+    }
+}
