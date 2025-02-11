@@ -1,0 +1,40 @@
+Given an integer array nums that may contain duplicates, return all possible 
+subsets
+ (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+
+import java.util.*;
+
+public class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        // Sort the array to handle duplicates easily
+        Arrays.sort(nums);
+
+        // Use a Set to store unique subsets
+        Set<List<Integer>> set = new HashSet<>();
+
+        // Start generating subsets
+        generateSubsets(nums, 0, new ArrayList<>(), set);
+
+        // Convert Set to List for the final result
+        return new ArrayList<>(set);
+    }
+
+    private void generateSubsets(int[] nums, int index, List<Integer> current, Set<List<Integer>> set) {
+        if (index == nums.length) {
+            // Add a copy of the current subset to the set
+            set.add(new ArrayList<>(current));
+            return;
+        }
+
+        // Include the current element
+        current.add(nums[index]);
+        generateSubsets(nums, index + 1, current, set);
+
+        // Exclude the current element
+        current.remove(current.size() - 1);
+        generateSubsets(nums, index + 1, current, set);
+    }
+}
