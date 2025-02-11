@@ -1,0 +1,24 @@
+Given a BST and a number X, find Ceil of X.
+Note: Ceil(X) is a number that is either equal to X or is immediately greater than X.
+
+If Ceil could not be found, return -1.
+
+
+class Tree {
+    ArrayList<Integer> a1=new ArrayList<>();
+    // Function to return the ceil of given number in BST.
+    int findCeil(Node root, int key) {
+        if (root == null) return -1;
+        findCeil(root.left,key);
+        a1.add(root.data);
+        findCeil(root.right,key);
+        for(int i=0;i<a1.size();i++){
+            if(a1.get(i)>=key){
+                return a1.get(i);
+            }
+            
+        }
+        return -1;
+        // Code here
+    }
+}
