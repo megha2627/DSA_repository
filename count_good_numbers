@@ -1,0 +1,37 @@
+A digit string is good if the digits (0-indexed) at even indices are even and the digits at odd indices are prime (2, 3, 5, or 7).
+
+For example, "2582" is good because the digits (2 and 8) at even positions are even and the digits (5 and 2) at odd positions are prime. However, "3245" is not good because 3 is at an even index but is not even.
+Given an integer n, return the total number of good digit strings of length n. Since the answer may be large, return it modulo 109 + 7.
+
+A digit string is a string consisting of digits 0 through 9 that may contain leading zeros.
+
+
+class Solution {
+      private static final int MOD = 1_000_000_007;
+    public static int countGoodNumbers(long n) {
+        long evenCount = (n + 1) / 2; // Count of even indices
+        long oddCount = n / 2;       // Count of odd indices
+
+        long evenCombinations = power(5, evenCount, MOD);
+        long oddCombinations = power(4, oddCount, MOD);
+
+        return (int) ((evenCombinations * oddCombinations) % MOD);
+    }
+
+    // Helper function to compute (base^exp) % mod using modular exponentiation
+    private static long power(long base, long exp, int mod) {
+        long result = 1;
+        base = base % mod;
+
+        while (exp > 0) {
+            if (exp % 2 == 1) { // If exp is odd, multiply base with result
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod; // Square the base
+            exp /= 2; // Halve the exponent
+        }
+
+        return result;
+    }
+
+}
