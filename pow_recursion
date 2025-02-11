@@ -1,0 +1,10 @@
+Implement pow(x, n), which calculates x raised to the power n (i.e., xn).
+
+import java.util.*;
+class Solution {
+    public double myPow(double x, int n) {
+        double k=Math.pow(x,n);
+        return k;
+        
+    }
+}
