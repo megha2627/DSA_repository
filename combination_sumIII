@@ -1,0 +1,40 @@
+Find all valid combinations of k numbers that sum up to n such that the following conditions are true:
+
+Only numbers 1 through 9 are used.
+Each number is used at most once.
+Return a list of all possible valid combinations. The list must not contain the same combination twice, and the combinations may be returned in any order.
+
+ 
+ class Solution {
+    List<List<Integer>> result;
+
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        solve(1, k, n, current, 0);
+        return result;
+    }
+
+    public void solve(int i, int k, int n, List<Integer> current, int sum) {
+        // Base case: If the combination size reaches k
+        if (current.size() == k) {
+            if (sum == n) {
+                result.add(new ArrayList<>(current));
+            }
+            return;
+        }
+
+        // Base case: If the sum exceeds n or we exceed the range of numbers
+        if (sum > n || i > 9) {
+            return;
+        }
+
+        // Include the current number
+        current.add(i);
+        solve(i + 1, k, n, current, sum + i);
+        current.remove(current.size() - 1); // Backtrack
+
+        // Exclude the current number
+        solve(i + 1, k, n, current, sum);
+    }
+}
