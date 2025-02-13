@@ -1,0 +1,41 @@
+Given a Doubly Linked list and a position. The task is to delete a node from a given position (position starts from 1) in a doubly linked list and return the head of the doubly Linked list.
+
+
+/*
+class DLLNode {
+    int data;
+    DLLNode next;
+    DLLNode prev;
+
+    DLLNode(int val) {
+        data = val;
+        next = null;
+        prev = null;
+    }
+}
+*/
+class Solution {
+    public DLLNode reverseDLL(DLLNode head) {
+        DLLNode current = head;
+    DLLNode temp = null;
+    DLLNode newHead = null;
+
+    // Traverse the list and swap next and prev for each node
+    while (current != null) {
+        // Swap the next and prev pointers
+        temp = current.prev;
+        current.prev = current.next;
+        current.next = temp;
+          newHead = current;
+
+        // Move to the next node (which is now current.prev due to the swap)
+        current = current.prev;
+    }
+
+    // Adjust the head to the last node processed, which is the new head
+    
+
+    return newHead; 
+        // Your code here
+    }
+}
