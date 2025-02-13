@@ -1,0 +1,55 @@
+Given a doubly-linked list, a position p, and an integer x. The task is to add a new node with value x at the position just after pth node in the doubly linked list and return the head of the updated list.
+
+
+
+/* Structure of Doubly Linked List
+class Node
+{
+	int data;
+	Node next;
+	Node prev;
+	Node(int data)
+	{
+	    this.data = data;
+	    next = prev = null;
+	}
+}*/
+
+class GfG
+{
+    //Function to insert a new node at given position in doubly linked list.
+    void addNode(Node head_ref, int pos, int data)
+	{
+	    Node temp=new Node(data);
+	    if(head_ref==null){
+	        head_ref=temp;
+	        
+	    }
+	   
+	    else{
+	         int p=0;
+	         Node current=head_ref;
+	        while(current.next!=null && p<pos ){
+	            current=current.next;
+	            p++;
+	        }
+	        if(current.next==null){
+	            current.next=temp;
+	        temp.prev=current;
+	            temp.next=null;
+	            
+	        }
+	        else{
+	           current.next.prev=temp;
+	            temp.next=current.next;
+	            current.next=temp;
+	            temp.prev=current;
+	            
+	        }
+	    }
+		// Your code here
+	}
+}
+
+
+
