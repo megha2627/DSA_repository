@@ -1,0 +1,132 @@
+Given a sorted doubly linked list of positive distinct elements, the task is to find pairs in a doubly-linked list whose sum is equal to given value target.
+
+/*
+
+Definition for singly Link List Node
+class Node
+{
+    int data;
+    Node next,prev;
+
+Java (1.8)
+Average Time: 10m
+
+
+
+
+
+
+  
+
+Custom Input
+    
+    Node(int x){
+        data = x;
+        next = null;
+        prev = null;
+    }
+}
+
+You can also use the following for printing the link list.
+Node.printList(Node node);
+*/
+
+/*class Solution {
+    public static ArrayList<ArrayList<Integer>> findPairsWithGivenSum(int target, Node head) {
+        // code here
+        ArrayList<ArrayList<Integer>> s=new ArrayList<>();
+           HashSet<String> seen = new HashSet<>();
+        Node current1=head;
+         Node current2=head;
+        while(current1!=null && current2!=null){
+             
+            
+               
+                if(current1!=current2 && current2.data+current1.data==target){
+                    ArrayList<Integer> s1=new ArrayList<>();
+                    int first = Math.min(current1.data, current2.data);
+                    int second = Math.max(current1.data, current2.data);
+                    String pair = first + "," + second;
+
+                    // Add the pair only if it hasn't been seen before
+                    if (!seen.contains(pair)) {
+                       
+                        s1.add(first);
+                        s1.add(second);
+                        
+                        s.add(s1);
+                        seen.add(pair); // Mark this pair as seen
+                    }
+                    
+                }
+                current2=current2.next;
+            if(current2.next==null){
+                current1=current1.next;
+                 current2=head;
+                
+            }
+            
+    
+
+            
+            
+        }  
+        Collections.sort(s, (a, b) -> {
+            int cmp = Integer.compare(a.get(0), b.get(0));
+            if (cmp == 0) {
+                cmp = Integer.compare(a.get(1), b.get(1));
+            }
+            return cmp;
+        });
+         
+        return s;
+    }
+}*/
+
+class Solution {
+    public static ArrayList<ArrayList<Integer>> findPairsWithGivenSum(int target, Node head) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        
+        // Convert the doubly linked list to an ArrayList
+        ArrayList<Integer> list = new ArrayList<>();
+        Node current = head;
+        while (current != null) {
+            list.add(current.data);
+            current = current.next;
+        }
+
+        // Sort the list
+        Collections.sort(list);
+
+        // Use two-pointer technique to find pairs
+        int left = 0;
+        int right = list.size() - 1;
+        HashSet<String> seen = new HashSet<>();
+
+        while (left < right) {
+            int sum = list.get(left) + list.get(right);
+            if (sum == target) {
+                int first = list.get(left);
+                int second = list.get(right);
+                String pair = first + "," + second;
+
+                // Add the pair only if it hasn't been seen before
+                if (!seen.contains(pair)) {
+                    ArrayList<Integer> pairList = new ArrayList<>();
+                    pairList.add(first);
+                    pairList.add(second);
+                    result.add(pairList);
+                    seen.add(pair); // Mark this pair as seen
+                }
+               left++;
+                right--;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return result;
+    }
+}
