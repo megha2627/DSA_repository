@@ -1,0 +1,36 @@
+Given a doubly linked list of n nodes sorted by values, the task is to remove duplicate nodes present in the linked list.
+
+//User function Template for Java
+
+class Solution{
+    Node removeDuplicates(Node head){
+        // Code Here.
+        Node current=head;
+        Node prev=null;
+        while(current.next!=null){
+           
+            if(current.data==current.next.data){
+                if(current==head){
+                    head=current.next;
+                }
+                current.next.prev=prev;
+                
+                
+            
+            if(current.prev!=null){
+                current.prev.next=current.next;
+                  prev=current.prev;
+            }
+            }
+            else{
+                prev=current;
+            }
+            
+           
+             current=current.next;
+            
+        }
+        return head;
+        
+    }
+}
